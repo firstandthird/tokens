@@ -1,0 +1,14 @@
+{
+  "name": "tokens",
+  "description": "jQuery plugin that turns a text field into a tokenized autocomplete",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jgallen23/tokens/",
+  "license": "MIT",
+  "copyright": "Greg Allen",
+  "main": "dist/tokens.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "assert": "*"
+  }
+}
