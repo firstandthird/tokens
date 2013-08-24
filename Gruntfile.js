@@ -22,6 +22,7 @@ module.exports = function(grunt) {
       main: {
         dest: 'dist/_bower.js',
         exclude: [
+          'jquery',
           'assert'
         ]
       }
@@ -34,14 +35,14 @@ module.exports = function(grunt) {
         src: [
           'lib/tokens.js'
         ],
-        dest: 'dist/tokens.js'
+        dest: 'dist/fidel.tokens.js'
       },
       full: {
         src: [
           'dist/_bower.js',
           'lib/tokens.js'
         ],
-        dest: 'dist/tokens.full.js'
+        dest: 'dist/tokens.js'
       }
     },
     uglify: {
@@ -49,12 +50,12 @@ module.exports = function(grunt) {
         banner: '<%= meta.banner %>'
       },
       dist: {
-        src: 'dist/tokens.js',
-        dest: 'dist/tokens.min.js'
+        src: 'dist/fidel.tokens.js',
+        dest: 'dist/fidel.tokens.min.js'
       },
       full: {
-        src: 'dist/tokens.full.js',
-        dest: 'dist/tokens.full.min.js'
+        src: 'dist/tokens.js',
+        dest: 'dist/tokens.min.js'
       }
     },
     clean: {

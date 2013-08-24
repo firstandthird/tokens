@@ -7,6 +7,8 @@
   "copyright": "Greg Allen",
   "main": "dist/tokens.js",
   "dependencies": {
+    "fidel": "2.*",
+    "jquery" : "1.10.x"
   },
   "devDependencies": {
     "assert": "*"

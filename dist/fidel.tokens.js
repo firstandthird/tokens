@@ -1,3 +1,10 @@
+/*!
+ * tokens - jQuery plugin that turns a text field into a tokenized autocomplete
+ * v0.1.0
+ * https://github.com/jgallen23/tokens/
+ * copyright Greg Allen 2013
+ * MIT License
+*/
 (function($){
   function escapeString (value) {
     return value.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");

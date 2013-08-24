@@ -3,9 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <title>tokens example</title>
+    <link rel="stylesheet" type="text/css" href="../lib/tokens.css">
   </head>
   <body>
-
+    <input type="text" id="tokens-example"/>
+    <script src="../bower_components/jquery/jquery.min.js"></script>
+    <script src="../bower_components/fidel/dist/fidel.min.js"></script>
     <script src="../dist/tokens.js"></script>
+    <script>
+      (function(){
+        $('#tokens-example').tokens({
+          source : [
+            'Acura', 'Audi', 'BMW', 'Cadillac',
+            'Chrysler', 'Dodge', 'Ferrari', 'Ford',
+            'GMC', 'Honda', 'Hyundai', 'Infiniti',
+            'Jeep', 'Kia', 'Lexus', 'Mini',
+            'Nissan', 'Porsche', 'Subaru', 'Toyota',
+            'Volkswagon', 'Volvo'
+          ],
+          initValue : [ 'Acura', 'Nissan' ]
+        });
+      })();
+    </script>
   </body>
 </html>
