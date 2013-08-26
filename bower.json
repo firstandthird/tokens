@@ -5,7 +5,7 @@
   "homepage": "https://github.com/jgallen23/tokens/",
   "license": "MIT",
   "copyright": "Greg Allen",
-  "main": "dist/tokens.js",
+  "main": "dist/fidel.tokens.js",
   "dependencies": {
     "fidel": "2.*",
     "jquery" : "1.10.x"
