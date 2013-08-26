@@ -75,6 +75,10 @@ Option to clean the input when suggestions are hidden.
 
 Array of initial values you want to see added when plugin inits
 
+#### `allowAddingNoSuggestion`
+
+Option that allows you to add a value on enter even if it's not on the suggestions.
+
 #### `suggestionsZindex`
 
 `z-index` value for suggestion's div.

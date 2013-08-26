@@ -1,6 +1,6 @@
 /*!
  * tokens - jQuery plugin that turns a text field into a tokenized autocomplete
- * v0.1.1
+ * v0.2.0
  * https://github.com/jgallen23/tokens/
  * copyright Greg Allen 2013
  * MIT License
@@ -31,6 +31,7 @@
       keyCode : {
         UP : 38,
         DOWN : 40,
+        BACKSPACE : 8,
         TAB: 9,
         ENTER : 13,
         ESC : 27
@@ -53,6 +54,7 @@
       maxSelected : 0,
       showSuggestionOnFocus : true,
       showMessageOnNoResults : true,
+      allowAddingNoSuggestion : true,
       cleanInputOnHide : true,
       suggestionsZindex : 999,
       sources : [],
@@ -133,6 +135,9 @@
         case this.keyCode.ENTER:
           this._selectSuggestion();
           break;
+        case this.keyCode.BACKSPACE:
+          this._deleteLastIfEmpty();
+          break;
         default:
           return;
       }
@@ -164,6 +169,17 @@
           this._updateSuggestions();
         }
       }
+    },
+    _deleteLastIfEmpty : function(){
+      if (this.inputText.val() === ''){
+        this._deleteLastToken();
+      }
+    },
+    _deleteLastToken : function(){
+      var tokens = this.currentValue.slice(0),
+          lastToken = tokens.pop();
+
+      this.removeValue(lastToken);
     },
     _nextSuggestion : function(){
       if (this.selectedSuggestion !== (this.suggestions.length -1)){
@@ -227,7 +243,13 @@
       this.selectedSuggestion = -1;
     },
     _selectSuggestion : function(){
-      this.addValue(this.suggestions[this.selectedSuggestion]);
+      if (this.suggestions.length){
+        this.addValue(this.suggestions[this.selectedSuggestion]);
+      }
+      else if (this.allowAddingNoSuggestion){
+        this.addValue(this.inputText.val());
+      }
+
       this._hideSuggestions();
     },
     _activateSuggestion : function(index){
