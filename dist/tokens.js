@@ -327,7 +327,7 @@
           break;
         case this.keyCode.BACKSPACE:
           this._deleteLastIfEmpty();
-          break;
+          return;
         default:
           return;
       }
