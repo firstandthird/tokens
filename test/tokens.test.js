@@ -12,6 +12,18 @@ function cleanMess(){
   $('div.tokens-suggestion-selector').remove();
 }
 
+function writeValue (tokens, value) {
+  tokens.val(value);
+  tokens.trigger('keyup');
+}
+
+function pressKey (input, key){
+  var ev = $.Event('keydown');
+  ev.ctrlKey = false;
+  ev.keyCode = key;
+  input.trigger(ev);
+}
+
 suite('tokens', function() {
   var tokens, tokensFidel, el, list, input;
 
@@ -115,17 +127,142 @@ suite('tokens', function() {
         cleanMess();
         el = $('#tokens-example');
         tokens = el.tokens({source : tokensSource, maxSelected : 1});
+        tokensFidel = tokens.data('tokens');
         tokensFidel.addValue('Acura');
-        tokensFidel.removeValue('Acura');
       });
       test('should remove DOM element on remove',function(){
+        tokensFidel.removeValue('Acura');
         assert.equal(list.find('.' + tokensFidel.cssClasses['list-token-holder']).length,0);
       });
       test('shouldn\'t have any valyes in the internal list', function(){
+        tokensFidel.removeValue('Acura');
         assert.equal(tokensFidel.getValue().length,0);
       });
       test('should have updated the original element', function(){
+        tokensFidel.removeValue('Acura');
         assert.equal(tokensFidel.el.val(),'');
+      });
+      test('should fire event passing removed value as parameter', function(){
+        var car = 'Acura';
+
+        tokens.on('remove', function(e,value){
+          assert.equal(value,car);
+        });
+
+        tokensFidel.removeValue(car);
+        assert.equal(tokensFidel.el.val(),'');
+      });
+      test('should remove on clicking delete anchor', function(){
+        tokensFidel.list.find('.' + tokensFidel.cssClasses['delete-anchor']).click();
+        assert.equal(tokensFidel.el.val(),'');
+      });
+      test('should remove on pressing backspace', function(){
+        pressKey(tokensFidel.inputText,tokensFidel.keyCode.BACKSPACE);
+        assert.equal(tokensFidel.el.val(),'');
+      });
+    });
+    suite('features',function(){
+      suite('list clicking',function(){
+        setup(function(){
+          cleanMess();
+        });
+        test('it should focus on clicking list',function(){
+          el = $('#tokens-example');
+          tokens = el.tokens({source : tokensSource });
+          tokensFidel = tokens.data('tokens');
+          tokensFidel.list.click();
+          setTimeout(function(){
+            assert.ok(tokensFidel.inputText.is(':focus'));
+          },10);
+        });
+        test('it should show a hint on focusing',function(){
+          el = $('#tokens-example');
+          tokens = el.tokens({source : tokensSource });
+          tokensFidel = tokens.data('tokens');
+          tokensFidel.list.click();
+
+          assert.equal(
+            tokensFidel.suggestionsHolder.find('p').text(),
+            tokensFidel.texts['type-suggestions']
+          );
+        });
+        test('it shouldn\'t show a hint on focusing if showSuggestionOnFocus is false',function(){
+          el = $('#tokens-example');
+          tokens = el.tokens({source : tokensSource, showSuggestionOnFocus : false });
+          tokensFidel = tokens.data('tokens');
+          tokensFidel.list.click();
+
+          assert.ok(!tokensFidel.suggestionsHolder.is(':visible'));
+        });
+      });
+      suite('not suggested values',function(){
+        setup(function(){
+          cleanMess();
+        });
+        test('it should add values which aren\'t in suggestions',function(){
+          var dummyValue = 'Test';
+          el = $('#tokens-example');
+          tokens = el.tokens({source : tokensSource });
+          tokensFidel = tokens.data('tokens');
+
+          writeValue(tokensFidel.inputText,dummyValue);
+          pressKey(tokensFidel.inputText,tokensFidel.keyCode.ENTER);
+
+          assert.equal(tokensFidel.getValue(),dummyValue);
+        });
+        test('it shouldn\'t add values which aren\'t in suggestions if allowAddingNoSuggestion is false',function(){
+          var dummyValue = 'Test';
+          el = $('#tokens-example');
+          tokens = el.tokens({source : tokensSource, allowAddingNoSuggestion : false });
+          tokensFidel = tokens.data('tokens');
+
+          writeValue(tokensFidel.inputText,dummyValue);
+          pressKey(tokensFidel.inputText,tokensFidel.keyCode.ENTER);
+
+          assert.notEqual(tokensFidel.getValue(),dummyValue);
+        });
+      });
+      suite('hide on blur', function(){
+        setup(function(){
+          cleanMess();
+        });
+        test('it should hide suggestions on blur',function(){
+          el = $('#tokens-example');
+          tokens = el.tokens({source : tokensSource });
+          tokensFidel = tokens.data('tokens');
+          tokensFidel.list.click();
+
+          setTimeout(function(){
+            tokensFidel.inputText.blur();
+            assert.ok(tokensFidel.suggestionsHolder.is(':hidden'));
+          },10);
+        });
+        test('it should clean input on blur',function(){
+          el = $('#tokens-example');
+          tokens = el.tokens({source : tokensSource });
+          tokensFidel = tokens.data('tokens');
+          tokensFidel.list.click();
+          var dummyValue = 'Test';
+
+          setTimeout(function(){
+            writeValue(tokensFidel.inputText,dummyValue);
+            tokensFidel.inputText.blur();
+            assert.notEqual(tokensFidel.inputText.val(),dummyValue);
+          },10);
+        });
+        test('it shouldn\'t clean input on hiding if cleanInputOnHide is false',function(){
+          el = $('#tokens-example');
+          tokens = el.tokens({source : tokensSource, cleanInputOnHide : false });
+          tokensFidel = tokens.data('tokens');
+          tokensFidel.list.click();
+          var dummyValue = 'Test';
+
+          setTimeout(function(){
+            writeValue(tokensFidel.inputText,dummyValue);
+            tokensFidel.inputText.blur();
+            assert.equal(tokensFidel.inputText.val(),dummyValue);
+          },10);
+        });
       });
     });
   });
