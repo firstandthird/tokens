@@ -170,11 +170,12 @@ suite('tokens', function() {
           el = $('#tokens-example');
           tokens = el.tokens({source : tokensSource });
           tokensFidel = tokens.data('tokens');
+
           tokensFidel.list.click();
           setTimeout(function(){
             assert.ok(tokensFidel.inputText.is(':focus'));
             done();
-          },10);
+          },30);
         });
         test('it should show a hint on focusing',function(){
           el = $('#tokens-example');
