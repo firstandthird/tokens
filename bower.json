@@ -1,16 +1,24 @@
 {
   "name": "tokens",
   "description": "jQuery plugin that turns a text field into a tokenized autocomplete",
-  "version": "0.2.1",
-  "homepage": "https://github.com/jgallen23/tokens/",
+  "version": "0.2.3",
+  "homepage": "https://github.com/firstandthird/tokens/",
   "license": "MIT",
   "copyright": "First + Third",
   "main": "dist/fidel.tokens.js",
   "dependencies": {
-    "fidel": "2.*",
-    "jquery" : "1.10.x"
+    "fidel": "2.*"
   },
   "devDependencies": {
-    "assert": "*"
-  }
+    "assert": "*",
+    "blanket": "*"
+  },
+  "ignore": [
+    "test",
+    "example",
+    "lib",
+    "Gruntfile.js",
+    "package.json",
+    "grunt"
+  ]
 }
