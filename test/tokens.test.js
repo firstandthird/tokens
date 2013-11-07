@@ -210,6 +210,17 @@ suite('tokens', function() {
 
           assert.equal(tokensFidel.getValue(),dummyValue);
         });
+        test('it shouldn\'t add empty values',function(){
+          var dummyValue = ' ';
+          el = $('#tokens-example');
+          tokens = el.tokens({source : tokensSource });
+          tokensFidel = tokens.data('tokens');
+
+          writeValue(tokensFidel.inputText,dummyValue);
+          pressKey(tokensFidel.inputText,tokensFidel.keyCode.ENTER);
+
+          assert.notEqual(tokensFidel.getValue(),dummyValue);
+        });
         test('it shouldn\'t add values which aren\'t in suggestions if allowAddingNoSuggestion is false',function(){
           var dummyValue = 'Test';
           el = $('#tokens-example');

@@ -2,7 +2,7 @@
  * tokens - jQuery plugin that turns a text field into a tokenized autocomplete
  * v0.2.1
  * https://github.com/jgallen23/tokens/
- * copyright Greg Allen 2013
+ * copyright First + Third 2013
  * MIT License
 */
 (function($){
@@ -243,11 +243,14 @@
       this.selectedSuggestion = -1;
     },
     _selectSuggestion : function(){
-      if (this.suggestions.length){
+      if (this.suggestions.length && this.selectedSuggestion !== -1){
         this.addValue(this.suggestions[this.selectedSuggestion]);
       }
       else if (this.allowAddingNoSuggestion){
-        this.addValue(this.inputText.val());
+        var val = $.trim(this.inputText.val());
+        if (val){
+          this.addValue(val);
+        }
       }
 
       this._hideSuggestions();
