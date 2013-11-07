@@ -247,7 +247,7 @@
       allowAddingNoSuggestion : true,
       cleanInputOnHide : true,
       suggestionsZindex : 999,
-      sources : [],
+      source : [],
       initValue : [],
       minChars : 0
     },
@@ -533,7 +533,7 @@
       };
     },
     _showTypeSuggestion : function(){
-      if (this.showSuggestionOnFocus && ! this.suggestions.length){
+      if (this.showSuggestionOnFocus && !this.suggestions.length && this.source.length){
         this._addTextToSuggestions(this.texts['type-suggestions']);
       }
     },
