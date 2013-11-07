@@ -1,7 +1,7 @@
 
 /*!
  * tokens - jQuery plugin that turns a text field into a tokenized autocomplete
- * v0.2.3
+ * v0.2.4
  * https://github.com/firstandthird/tokens/
  * copyright First + Third 2013
  * MIT License
@@ -110,7 +110,9 @@
     },
     _focusInput: function () {
       var self = this;
-      setTimeout(function(){ self.inputText.focus(); },10);
+      setTimeout(function(){
+        self.inputText.focus();
+      },10);
     },
     _onDeleteClick: function (e) {
       e.stopImmediatePropagation();
@@ -214,7 +216,7 @@
           this.suggestionsHolder.empty().append(html);
           this._showSuggestions();
         }
-        else {
+        else if (this.source.length) {
           this._addTextToSuggestions(this.texts['no-results']);
         }
       });
@@ -289,7 +291,7 @@
 
       this.suggestionsHolder.on('mouseover', listClass, this.proxy(this._onMouseOver,this));
       this.suggestionsHolder.on('mouseout', listClass, this.proxy(this._deactivateSuggestion,this));
-      this.suggestionsHolder.on('click', listClass, this.proxy(this._selectSuggestion,this));
+      this.suggestionsHolder.on('mousedown', listClass, this.proxy(this._selectSuggestion,this));
     },
     _getCloseAnchor: function () {
       return $('<span>').text(this.texts['close-text']).addClass(this.cssClasses['delete-anchor']);
