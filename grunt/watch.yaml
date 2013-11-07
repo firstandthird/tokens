@@ -22,3 +22,7 @@ build:
     - 'Gruntfile.js'
     - 'grunt/*.yaml'
   tasks: 'default'
+styles:
+  files:
+    - 'less/*'
+  tasks: 'styles'

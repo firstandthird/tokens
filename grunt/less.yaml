@@ -1,0 +1,3 @@
+styles:
+  files:
+    'dist/tokens.css': 'less/default.less'
