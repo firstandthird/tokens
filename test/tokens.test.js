@@ -25,7 +25,7 @@ function pressKey (input, key){
 }
 
 suite('tokens', function() {
-  var tokens, tokensFidel, el, list, input;
+  var tokens, tokensFidel, el, list, input, dummyValue;
 
   setup(function(){
     cleanMess();
@@ -165,67 +165,47 @@ suite('tokens', function() {
       suite('list clicking',function(){
         setup(function(){
           cleanMess();
-        });
-        test.skip('it should focus on clicking list',function(done){
           el = $('#tokens-example');
           tokens = el.tokens({source : tokensSource });
           tokensFidel = tokens.data('tokens');
-
+        });
+        test.skip('it should focus on clicking list',function(done){
           tokensFidel.list.click();
+
           setTimeout(function(){
             assert.ok(tokensFidel.inputText.is(':focus'));
             done();
           },30);
         });
-        test('it should show a hint on focusing',function(){
-          el = $('#tokens-example');
-          tokens = el.tokens({source : tokensSource });
-          tokensFidel = tokens.data('tokens');
-          tokensFidel.list.click();
-
-          assert.equal(
-            tokensFidel.suggestionsHolder.find('p').text(),
-            tokensFidel.texts['type-suggestions']
-          );
-        });
-        test('it shouldn\'t show a hint on focusing if showSuggestionOnFocus is false',function(){
-          el = $('#tokens-example');
-          tokens = el.tokens({source : tokensSource, showSuggestionOnFocus : false });
-          tokensFidel = tokens.data('tokens');
-          tokensFidel.list.click();
-
-          assert.ok(!tokensFidel.suggestionsHolder.is(':visible'));
-        });
       });
       suite('not suggested values',function(){
         setup(function(){
           cleanMess();
-        });
-        test('it should add values which aren\'t in suggestions',function(){
-          var dummyValue = 'Test';
+          dummyValue = 'Test';
           el = $('#tokens-example');
           tokens = el.tokens({source : tokensSource });
           tokensFidel = tokens.data('tokens');
-
+        });
+        test('it should add values which aren\'t in suggestions',function(){
           writeValue(tokensFidel.inputText,dummyValue);
           pressKey(tokensFidel.inputText,tokensFidel.keyCode.ENTER);
 
           assert.equal(tokensFidel.getValue(),dummyValue);
         });
-        test('it shouldn\'t add empty values',function(){
-          var dummyValue = ' ';
-          el = $('#tokens-example');
-          tokens = el.tokens({source : tokensSource });
-          tokensFidel = tokens.data('tokens');
-
+        test('it should add values if a comma is pressed',function(){
           writeValue(tokensFidel.inputText,dummyValue);
+          pressKey(tokensFidel.inputText,tokensFidel.keyCode.COMMA);
+
+          assert.equal(tokensFidel.getValue(),dummyValue);
+        });
+        test('it shouldn\'t add empty values',function(){
+          writeValue(tokensFidel.inputText,' ');
           pressKey(tokensFidel.inputText,tokensFidel.keyCode.ENTER);
 
-          assert.notEqual(tokensFidel.getValue(),dummyValue);
+          assert.equal(tokensFidel.getValue().length,0);
         });
         test('it shouldn\'t add values which aren\'t in suggestions if allowAddingNoSuggestion is false',function(){
-          var dummyValue = 'Test';
-          el = $('#tokens-example');
+          cleanMess();
           tokens = el.tokens({source : tokensSource, allowAddingNoSuggestion : false });
           tokensFidel = tokens.data('tokens');
 
@@ -238,11 +218,12 @@ suite('tokens', function() {
       suite('hide on blur', function(){
         setup(function(){
           cleanMess();
-        });
-        test('it should hide suggestions on blur',function(done){
           el = $('#tokens-example');
           tokens = el.tokens({source : tokensSource });
           tokensFidel = tokens.data('tokens');
+          dummyValue = 'Test';
+        });
+        test('it should hide suggestions on blur',function(done){
           tokensFidel.list.click();
 
           setTimeout(function(){
@@ -252,11 +233,7 @@ suite('tokens', function() {
           },10);
         });
         test('it should clean input on blur',function(done){
-          el = $('#tokens-example');
-          tokens = el.tokens({source : tokensSource });
-          tokensFidel = tokens.data('tokens');
           tokensFidel.list.click();
-          var dummyValue = 'Test';
 
           setTimeout(function(){
             writeValue(tokensFidel.inputText,dummyValue);
@@ -266,11 +243,10 @@ suite('tokens', function() {
           },10);
         });
         test('it shouldn\'t clean input on hiding if cleanInputOnHide is false',function(done){
-          el = $('#tokens-example');
+          cleanMess();
           tokens = el.tokens({source : tokensSource, cleanInputOnHide : false });
           tokensFidel = tokens.data('tokens');
           tokensFidel.list.click();
-          var dummyValue = 'Test';
 
           setTimeout(function(){
             writeValue(tokensFidel.inputText,dummyValue);
@@ -278,6 +254,63 @@ suite('tokens', function() {
             assert.equal(tokensFidel.inputText.val(),dummyValue);
             done();
           },10);
+        });
+      });
+      suite('hints', function(){
+        setup(function(){
+          cleanMess();
+          dummyValue = 'Not in list';
+        });
+        test('it should show a hint on focusing',function(){
+          tokens = el.tokens({source : tokensSource });
+          tokensFidel = tokens.data('tokens');
+          tokensFidel.list.click();
+
+          assert.equal(
+              tokensFidel.suggestionsHolder.find('p').text(),
+              tokensFidel.texts['type-suggestions']
+          );
+        });
+        test('it shouldn\'t show a hint on focusing if showSuggestionOnFocus is false',function(){
+          tokens = el.tokens({source : tokensSource, showSuggestionOnFocus : false });
+          tokensFidel = tokens.data('tokens');
+          tokensFidel.list.click();
+
+          assert.ok(!tokensFidel.suggestionsHolder.is(':visible'));
+        });
+        test('it should show add suggestion hint if no suggestions are available', function(){
+          tokens = el.tokens({source : tokensSource});
+          tokensFidel = tokens.data('tokens');
+          writeValue(tokensFidel.inputText,dummyValue);
+
+          assert.equal(
+            tokensFidel.suggestionsHolder.find('p').text(),
+            tokensFidel.texts['add-result'].replace('%s',dummyValue)
+          );
+        });
+        test('it shouldn\'t show add suggestion hint if no suggestions are available and showMessageOnNoResults is false', function(){
+          tokens = el.tokens({source : tokensSource, showMessageOnNoResults : false });
+          tokensFidel = tokens.data('tokens');
+
+          writeValue(tokensFidel.inputText,dummyValue);
+          assert.ok(!tokensFidel.suggestionsHolder.is(':visible'));
+        });
+        test('it should show no results hint if no suggestions are available and allowAddingNoSuggestion is false', function(){
+          tokens = el.tokens({source : tokensSource, allowAddingNoSuggestion : false });
+          tokensFidel = tokens.data('tokens');
+
+          writeValue(tokensFidel.inputText,dummyValue);
+          assert.equal(
+            tokensFidel.suggestionsHolder.find('p').text(),
+            tokensFidel.texts['no-results']
+          );
+        });
+        test('it shouldn\'t show hintst if no suggestions are available, source is empty and allowAddingNoSuggestion is false', function(){
+          tokens = el.tokens({source : [], allowAddingNoSuggestion : false });
+          tokensFidel = tokens.data('tokens');
+
+          writeValue(tokensFidel.inputText,dummyValue);
+          assert.ok(!tokensFidel.suggestionsHolder.is(':visible'));
         });
       });
     });
