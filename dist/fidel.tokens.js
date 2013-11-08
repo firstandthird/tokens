@@ -1,7 +1,7 @@
 
 /*!
  * tokens - jQuery plugin that turns a text field into a tokenized autocomplete
- * v0.2.5
+ * v0.2.6
  * https://github.com/firstandthird/tokens/
  * copyright First + Third 2013
  * MIT License
@@ -35,12 +35,14 @@
         BACKSPACE : 8,
         TAB: 9,
         ENTER : 13,
-        ESC : 27
+        ESC : 27,
+        COMMA : 188
       },
       texts : {
         'close-text' : '×',
         'type-suggestions' : 'Type to search values',
-        'no-results' : 'There are no results matching'
+        'no-results' : 'There are no results matching',
+        'add-result' : 'Add "%s" to the list'
       },
       cssClasses : {
         'token-list' : 'tokens-token-list',
@@ -136,6 +138,7 @@
           break;
         case this.keyCode.TAB:
         case this.keyCode.ENTER:
+        case this.keyCode.COMMA:
           this._selectSuggestion();
           break;
         case this.keyCode.BACKSPACE:
@@ -161,7 +164,7 @@
       this._activateSuggestion(target.data('index'));
     },
     _suggestionChanged : function(){
-      var value = $.trim(this.inputText.val());
+      var value = this.inputText.val();
 
       if (value !== this.suggestionValue){
         this.inputText.val(value);
@@ -216,8 +219,15 @@
           this.suggestionsHolder.empty().append(html);
           this._showSuggestions();
         }
-        else if (this.source.length) {
-          this._addTextToSuggestions(this.texts['no-results']);
+        else if (this.showMessageOnNoResults) {
+          if (!this.allowAddingNoSuggestion){
+            if (this.source.length){
+              this._addTextToSuggestions(this.texts['no-results']);
+            }
+          }
+          else {
+            this._addTextToSuggestions(this.texts['add-result'].replace('%s',this.suggestionValue));
+          }
         }
       });
     },

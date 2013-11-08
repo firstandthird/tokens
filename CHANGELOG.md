@@ -1,4 +1,10 @@
 
+0.2.6 / 2013-11-08 
+==================
+
+  * Avoiding trimming spaces accidentally
+  * Several improvements
+
 0.2.5 / 2013-11-07 
 ==================
 
