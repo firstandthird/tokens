@@ -1,4 +1,16 @@
 
+0.2.5 / 2013-11-07 
+==================
+
+  * moved less to less folder and added back less tasks
+
+0.2.4 / 2013-11-07 
+==================
+
+  * Fixing bugs
+  * fixed passing tests. #1
+  * updated build scripts
+
 0.2.0 / 2013-08-26
 ==================
 
