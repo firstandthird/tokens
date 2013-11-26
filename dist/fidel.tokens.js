@@ -36,7 +36,8 @@
         TAB: 9,
         ENTER : 13,
         ESC : 27,
-        COMMA : 188
+        COMMA : 188,
+        SPACE: 32
       },
       texts : {
         'close-text' : '×',
@@ -139,6 +140,7 @@
         case this.keyCode.TAB:
         case this.keyCode.ENTER:
         case this.keyCode.COMMA:
+        case this.keyCode.SPACE:
           this._selectSuggestion();
           break;
         case this.keyCode.BACKSPACE:

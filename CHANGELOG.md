@@ -1,4 +1,10 @@
 
+0.3.0 / 2013-11-26 
+==================
+
+ * Merge pull request #10 from firstandthird/feature/9-spacebar-trigger-token
+ * Spacebar adds token
+
 0.2.6 / 2013-11-08 
 ==================
 
