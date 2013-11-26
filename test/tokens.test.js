@@ -198,6 +198,12 @@ suite('tokens', function() {
 
           assert.equal(tokensFidel.getValue(),dummyValue);
         });
+        test('it should add values if spacebar is pressed',function(){
+          writeValue(tokensFidel.inputText,dummyValue);
+          pressKey(tokensFidel.inputText,tokensFidel.keyCode.SPACE);
+
+          assert.equal(tokensFidel.getValue(),dummyValue);
+        });
         test('it shouldn\'t add empty values',function(){
           writeValue(tokensFidel.inputText,' ');
           pressKey(tokensFidel.inputText,tokensFidel.keyCode.ENTER);
