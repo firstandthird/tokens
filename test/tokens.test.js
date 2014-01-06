@@ -319,6 +319,46 @@ suite('tokens', function() {
           assert.ok(!tokensFidel.suggestionsHolder.is(':visible'));
         });
       });
+      suite('validation', function(){
+        setup(function(){
+          cleanMess();
+        });
+        test('any input should be allowed by default', function() {
+          tokens = el.tokens({source : tokensSource});
+          tokensFidel = tokens.data('tokens');
+
+          writeValue(tokensFidel.inputText, 'example<>@examplecom');
+
+          assert.equal(
+            tokensFidel.suggestionsHolder.find('p').text(),
+            tokensFidel.texts['add-result'].replace('%s','example<>@examplecom')
+          );
+        });
+
+        test('only valid input should be allowed', function() {
+          tokens = el.tokens({
+            source: [],
+            validate: function(query) {
+              return (query.indexOf('example.com') > -1);
+            }
+          });
+          tokensFidel = tokens.data('tokens');
+
+          writeValue(tokensFidel.inputText, 'example<>@examplecom');
+
+          assert.equal(
+            tokensFidel.suggestionsHolder.find('p').text(),
+            tokensFidel.texts['invalid-format'].replace('%s','example<>@examplecom')
+          );
+
+          writeValue(tokensFidel.inputText, 'example<>@example.com');
+
+          assert.equal(
+            tokensFidel.suggestionsHolder.find('p').text(),
+            tokensFidel.texts['add-result'].replace('%s','example<>@example.com')
+          );
+        });
+      });
     });
   });
 });
