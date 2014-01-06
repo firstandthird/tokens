@@ -10,10 +10,10 @@ ul.tokens-token-list {
   background: #ffffff;
   list-style-type: none;
   clear: both;
+  overflow: auto;
 }
 ul.tokens-token-list,
 div.tokens-suggestion-selector {
-  font-family: Verdana, Geneva, sans-serif;
   color: #e5e5e5;
   font-size: 12px;
   overflow: hidden;

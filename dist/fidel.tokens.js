@@ -1,9 +1,9 @@
 
 /*!
  * tokens - jQuery plugin that turns a text field into a tokenized autocomplete
- * v0.2.6
+ * v0.4.0
  * https://github.com/firstandthird/tokens/
- * copyright First + Third 2013
+ * copyright First + Third 2014
  * MIT License
 */
 (function($){
@@ -29,6 +29,9 @@
 
         callback.apply(this,[suggestions]);
       },
+      validate : function(query) {
+        return true;
+      },
       keyCode : {
         UP : 38,
         DOWN : 40,
@@ -43,7 +46,8 @@
         'close-text' : '×',
         'type-suggestions' : 'Type to search values',
         'no-results' : 'There are no results matching',
-        'add-result' : 'Add "%s" to the list'
+        'add-result' : 'Add "%s" to the list',
+        'invalid-format' : '%s is not the correct format'
       },
       cssClasses : {
         'token-list' : 'tokens-token-list',
@@ -228,7 +232,11 @@
             }
           }
           else {
-            this._addTextToSuggestions(this.texts['add-result'].replace('%s',this.suggestionValue));
+            if(this.validate(this.suggestionValue)) {
+              this._addTextToSuggestions(this.texts['add-result'].replace('%s',this.suggestionValue));
+            } else {
+              this._addTextToSuggestions(this.texts['invalid-format'].replace('%s',this.suggestionValue));
+            }
           }
         }
       });
@@ -263,7 +271,7 @@
       }
       else if (this.allowAddingNoSuggestion){
         var val = $.trim(this.inputText.val());
-        if (val){
+        if (val && this.validate(val)){
           this.addValue(val);
         }
       }

@@ -1,8 +1,14 @@
 
+0.4.0 / 2014-01-06 
+==================
+
+  * Added overflow: auto to tokens-token-list
+  * Removed font-family and allows font-size to be passed in.
+  * Added optional validation.
+
 0.3.0 / 2013-11-26 
 ==================
 
- * Merge pull request #10 from firstandthird/feature/9-spacebar-trigger-token
  * Spacebar adds token
 
 0.2.6 / 2013-11-08 
