@@ -3,6 +3,8 @@
   @listBorder : 1px solid #aaa,
   @listMaxHeight : 300px,
   @fontColor : #e5e5e5,
+  @fontSize : 12px,
+  @fontSizeSmall : 11px,
   @suggestionBackground : #989898,
   @selectorBorder : 1px solid #aaa,
   @selectorRadius : 3px,
@@ -24,13 +26,13 @@
     background: @listBackground;
     list-style-type: none;
     clear: both;
+    overflow: auto;
   }
 
   ul.tokens-token-list,
   div.tokens-suggestion-selector {
-    font-family: Verdana, Geneva, sans-serif;
     color: @fontColor;
-    font-size: 12px;
+    font-size: @fontSize;
     overflow: hidden;
   }
 
@@ -57,7 +59,7 @@
     background: @suggestionBackground;
     cursor: default;
     border-radius: @selectorRadius;
-    font-size: 11px;
+    font-size: @fontSizeSmall;
     white-space: nowrap;
   }
 
