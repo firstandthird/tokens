@@ -6,7 +6,10 @@
     <link rel="stylesheet" type="text/css" href="../dist/tokens.css">
   </head>
   <body>
+    <h2>Cars</h2>
     <input type="text" id="tokens-example"/>
+    <h2>Emails</h2>
+    <input type="text" id="tokens-email"/>
     <script src="../bower_components/jquery/jquery.min.js"></script>
     <script src="../bower_components/fidel/dist/fidel.min.js"></script>
     <script src="../dist/fidel.tokens.js"></script>
@@ -22,6 +25,11 @@
             'Volkswagon', 'Volvo'
           ],
           initValue : [ 'Acura', 'Nissan' ]
+        });
+        $('#tokens-email').tokens({
+          validate: function(val) {
+            return (val.indexOf('@') != -1);
+          }
         });
       })();
     </script>
