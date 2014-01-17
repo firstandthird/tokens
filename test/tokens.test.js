@@ -30,7 +30,7 @@ suite('tokens', function() {
   setup(function(){
     cleanMess();
     el = $('#tokens-example');
-    tokens = el.tokens({source : tokensSource, cleanInputOnHide: false});
+    tokens = el.tokens({source : tokensSource});
     tokensFidel = tokens.data('tokens');
     input = $('input.' + tokensFidel.cssClasses['input-text']);
     list = $('ul.' + tokensFidel.cssClasses['token-list']);
@@ -329,24 +329,13 @@ suite('tokens', function() {
         setup(function(){
           cleanMess();
         });
-        test('any input should be allowed by default', function() {
-          tokens = el.tokens({source : tokensSource});
-          tokensFidel = tokens.data('tokens');
-
-          writeValue(tokensFidel.inputText, 'example<>@examplecom');
-
-          assert.equal(
-            tokensFidel.suggestionsHolder.find('p').text(),
-            tokensFidel.texts['add-result'].replace('%s','example<>@examplecom')
-          );
-        });
-
         test('only valid input should be allowed', function() {
           tokens = el.tokens({
             source: [],
             validate: function(query) {
               return (query.indexOf('example.com') > -1);
-            }
+            },
+            cleanInputOnHide: false
           });
           tokensFidel = tokens.data('tokens');
 
