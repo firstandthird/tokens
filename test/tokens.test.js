@@ -30,7 +30,7 @@ suite('tokens', function() {
   setup(function(){
     cleanMess();
     el = $('#tokens-example');
-    tokens = el.tokens({source : tokensSource});
+    tokens = el.tokens({source : tokensSource, cleanInputOnHide: false});
     tokensFidel = tokens.data('tokens');
     input = $('input.' + tokensFidel.cssClasses['input-text']);
     list = $('ul.' + tokensFidel.cssClasses['token-list']);
@@ -344,18 +344,18 @@ suite('tokens', function() {
           });
           tokensFidel = tokens.data('tokens');
 
-          writeValue(tokensFidel.inputText, 'example<>@examplecom');
+          writeValue(tokensFidel.inputText, 'example<>');
 
           assert.equal(
             tokensFidel.suggestionsHolder.find('p').text(),
-            tokensFidel.texts['invalid-format'].replace('%s','example<>@examplecom')
+            tokensFidel.texts['add-result'].replace('%s','example<>')
           );
 
-          writeValue(tokensFidel.inputText, 'example<>@example.com');
+          pressKey(tokensFidel.inputText,tokensFidel.keyCode.ENTER);
 
           assert.equal(
             tokensFidel.suggestionsHolder.find('p').text(),
-            tokensFidel.texts['add-result'].replace('%s','example<>@example.com')
+            tokensFidel.texts['invalid-format'].replace('%s','example<>')
           );
         });
       });
