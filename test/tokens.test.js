@@ -220,6 +220,12 @@ suite('tokens', function() {
 
           assert.notEqual(tokensFidel.getValue(),dummyValue);
         });
+        test('it should add new value on click', function(){
+          writeValue(tokensFidel.inputText,dummyValue);
+          $('.' + tokensFidel.cssClasses['add-new-result']).trigger('mousedown');
+
+          assert.equal(tokensFidel.getValue(),dummyValue);
+        });
       });
       suite('hide on blur', function(){
         setup(function(){
