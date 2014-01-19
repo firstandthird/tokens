@@ -69,6 +69,9 @@ div.tokens-suggestion-selector p {
   padding: 5px;
   font-weight: bold;
 }
+div.tokens-suggestion-selector p.tokens-invalid-format {
+  color: #ff0000;
+}
 div.tokens-suggestion-selector ul {
   list-style-type: none;
   margin: 0;

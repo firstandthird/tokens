@@ -1,7 +1,7 @@
 
 /*!
  * tokens - jQuery plugin that turns a text field into a tokenized autocomplete
- * v0.4.0
+ * v0.4.1
  * https://github.com/firstandthird/tokens/
  * copyright First + Third 2014
  * MIT License
@@ -247,7 +247,9 @@
         'delete-anchor' : 'tokens-delete-token',
         'suggestion-selector' : 'tokens-suggestion-selector',
         'suggestions-list-element' : 'tokens-suggestions-list-element',
-        'highlighted-suggestion' : 'tokens-highlighted-suggestion'
+        'highlighted-suggestion' : 'tokens-highlighted-suggestion',
+        'add-new-result' : 'tokens-add-new-result',
+        'invalid-format' : 'tokens-invalid-format'
       },
       maxSelected : 0,
       showSuggestionOnFocus : true,
@@ -422,11 +424,7 @@
             }
           }
           else {
-            if(this.validate(this.suggestionValue)) {
-              this._addTextToSuggestions(this.texts['add-result'].replace('%s',this.suggestionValue));
-            } else {
-              this._addTextToSuggestions(this.texts['invalid-format'].replace('%s',this.suggestionValue));
-            }
+            this._addTextToSuggestions(this.texts['add-result'].replace('%s',this.suggestionValue), this.cssClasses['add-new-result']);
           }
         }
       });
@@ -458,15 +456,18 @@
     _selectSuggestion : function(){
       if (this.suggestions.length && this.selectedSuggestion !== -1){
         this.addValue(this.suggestions[this.selectedSuggestion]);
+        this._hideSuggestions();
       }
       else if (this.allowAddingNoSuggestion){
         var val = $.trim(this.inputText.val());
         if (val && this.validate(val)){
           this.addValue(val);
+          this._hideSuggestions();
+        } else {
+          this._addTextToSuggestions(this.texts['invalid-format'].replace('%s',this.suggestionValue), this.cssClasses['invalid-format']);
+          this.cancelBlur = true;
         }
       }
-
-      this._hideSuggestions();
     },
     _activateSuggestion : function(index){
       var cssClass = this.cssClasses['highlighted-suggestion'],
@@ -497,7 +498,7 @@
       this.inputText.on('keyup', this.proxy(this._onKeyUp,this));
       this.inputText.on('blur keyup keydown', this.proxy(this._resizeInput,this));
 
-      var listClass = '.' + this.cssClasses['suggestions-list-element'];
+      var listClass = '.' + this.cssClasses['suggestions-list-element'] + ', .' + this.cssClasses['add-new-result'];
 
       this.suggestionsHolder.on('mouseover', listClass, this.proxy(this._onMouseOver,this));
       this.suggestionsHolder.on('mouseout', listClass, this.proxy(this._deactivateSuggestion,this));
@@ -560,8 +561,9 @@
         this._addTextToSuggestions(this.texts['type-suggestions']);
       }
     },
-    _addTextToSuggestions : function(text){
-      this.suggestionsHolder.html('<p>' + text + '</p>');
+    _addTextToSuggestions : function(text, classes){
+      classes = classes || "";
+      this.suggestionsHolder.html('<p class="' + classes +'">' + text + '</p>');
       this._showSuggestions();
     },
     _showSuggestions : function(){
@@ -571,6 +573,11 @@
       }
     },
     _hideSuggestions : function() {
+      if(this.cancelBlur) {
+        this.cancelBlur = false;
+        return false;
+      }
+
       this.visibleSuggestions = false;
       this.suggestionValue = '';
       this.suggestions = [];

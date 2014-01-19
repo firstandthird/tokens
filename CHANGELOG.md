@@ -1,4 +1,13 @@
 
+0.4.1 / 2014-01-18 
+==================
+
+  * Allows click to add with invalid message.
+  * Added invalid class when validations fails. Defaults to red.
+  * Changed validation to only run when text is about to be added.
+  * Added ability to click new suggestion and have it added.
+  * added example showing off validation
+
 0.4.0 / 2014-01-06 
 ==================
 
