@@ -12,7 +12,8 @@
   @selectorBoxShadow : 0 0 5px #888,
   @selectorTopBorder : 1px solid #FFF,
   @selectorBottomBorder : 1px solid #FFF,
-  @selectedSuggestionBackground : #444)
+  @selectedSuggestionBackground : #444,
+  @invalidColor : red)
 {
   ul.tokens-token-list {
     height: auto;
@@ -90,6 +91,9 @@
     margin: 0;
     padding: 5px;
     font-weight: bold;
+    &.tokens-invalid-format {
+      color: @invalidColor;
+    }
   }
 
   div.tokens-suggestion-selector ul {
