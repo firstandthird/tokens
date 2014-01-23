@@ -1,4 +1,11 @@
 
+0.4.2 / 2014-01-23 
+==================
+
+  * Fixes issue where item could be added multiple times.
+  * Adds error message when existing item is added.
+  * Fixes an issue where input isn't cleared when an item is added.
+
 0.4.1 / 2014-01-18 
 ==================
 

@@ -1,7 +1,7 @@
 
 /*!
  * tokens - jQuery plugin that turns a text field into a tokenized autocomplete
- * v0.4.1
+ * v0.4.2
  * https://github.com/firstandthird/tokens/
  * copyright First + Third 2014
  * MIT License
@@ -237,7 +237,8 @@
         'type-suggestions' : 'Type to search values',
         'no-results' : 'There are no results matching',
         'add-result' : 'Add "%s" to the list',
-        'invalid-format' : '%s is not the correct format'
+        'invalid-format' : '%s is not the correct format',
+        'existing-item' : '%s is already selected'
       },
       cssClasses : {
         'token-list' : 'tokens-token-list',
@@ -249,7 +250,7 @@
         'suggestions-list-element' : 'tokens-suggestions-list-element',
         'highlighted-suggestion' : 'tokens-highlighted-suggestion',
         'add-new-result' : 'tokens-add-new-result',
-        'invalid-format' : 'tokens-invalid-format'
+        'existing-item' : 'tokens-existing-item'
       },
       maxSelected : 0,
       showSuggestionOnFocus : true,
@@ -455,14 +456,26 @@
     },
     _selectSuggestion : function(){
       if (this.suggestions.length && this.selectedSuggestion !== -1){
-        this.addValue(this.suggestions[this.selectedSuggestion]);
-        this._hideSuggestions();
+        if(this.addValue(this.suggestions[this.selectedSuggestion])) {
+          this.cancelBlur = false;
+          this._hideSuggestions();
+          this.inputText.val('');
+        } else {
+          this._addTextToSuggestions(this.texts['existing-item'].replace('%s',this.suggestions[this.selectedSuggestion]), this.cssClasses['existing-item']);
+          this.cancelBlur = true;
+        }
       }
       else if (this.allowAddingNoSuggestion){
         var val = $.trim(this.inputText.val());
         if (val && this.validate(val)){
-          this.addValue(val);
-          this._hideSuggestions();
+          if(this.addValue(val)) {
+            this.cancelBlur = false;
+            this._hideSuggestions();
+            this.inputText.val('');
+          } else {
+            this._addTextToSuggestions(this.texts['existing-item'].replace('%s',this.suggestionValue), this.cssClasses['existing-item']);
+            this.cancelBlur = true;
+          }
         } else {
           this._addTextToSuggestions(this.texts['invalid-format'].replace('%s',this.suggestionValue), this.cssClasses['invalid-format']);
           this.cancelBlur = true;
@@ -591,7 +604,8 @@
       return this.currentValue;
     },
     addValue: function (value) {
-      if (this.currentValue.indexOf(value) === -1 && this._isWithinMax()){
+      var tmp = this.currentValue.join(',').toLowerCase().split(',');
+      if (tmp.indexOf(value.toLowerCase()) === -1 && this._isWithinMax()){
         this.currentValue.push(value);
         var list = $('<li>').addClass(this.cssClasses['list-token-holder']),
             paragraph = $('<p>').text(value);
@@ -606,6 +620,9 @@
         if (this._hasReachedMax()){
           this.emit('max', value);
         }
+        return true;
+      } else {
+        return false;
       }
      },
     removeValue: function (value) {

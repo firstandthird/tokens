@@ -69,7 +69,8 @@ div.tokens-suggestion-selector p {
   padding: 5px;
   font-weight: bold;
 }
-div.tokens-suggestion-selector p.tokens-invalid-format {
+div.tokens-suggestion-selector p.tokens-invalid-format,
+div.tokens-suggestion-selector p.tokens-existing-item {
   color: #ff0000;
 }
 div.tokens-suggestion-selector ul {
