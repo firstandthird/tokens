@@ -353,6 +353,23 @@ suite('tokens', function() {
             tokensFidel.texts['invalid-format'].replace('%s','example<>')
           );
         });
+
+        test('allow valid to modify input', function() {
+          tokens = el.tokens({
+            source: [],
+            validate: function(query) {
+              return query.split('').reverse().join('');
+            },
+            cleanInputOnHide: false
+          });
+          tokensFidel = tokens.data('tokens');
+
+          writeValue(tokensFidel.inputText, 'example');
+
+          pressKey(tokensFidel.inputText,tokensFidel.keyCode.ENTER);
+
+          assert.equal(tokensFidel.getValue()[0], 'elpmaxe');
+        });
       });
     });
   });

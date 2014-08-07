@@ -10,7 +10,10 @@
     <input type="text" id="tokens-example"/>
     <h2>Emails</h2>
     <input type="text" id="tokens-email"/>
-    <script src="../bower_components/jquery/jquery.min.js"></script>
+    <h2>Custom validate</h2>
+    <p>Try entering <pre>John &lt;john@example.com&gt;</pre>
+    <input type="text" id="tokens-validate"/>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/fidel/dist/fidel.min.js"></script>
     <script src="../dist/fidel.tokens.js"></script>
     <script>
@@ -29,6 +32,14 @@
         $('#tokens-email').tokens({
           validate: function(val) {
             return (val.indexOf('@') != -1);
+          }
+        });
+        $('#tokens-validate').tokens({
+          validate: function(val) {
+            var email = val.match(/(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/gi);
+            if(email === null) return false;
+
+            return email[0];
           }
         });
       })();
