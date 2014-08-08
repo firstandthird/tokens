@@ -1,4 +1,9 @@
 
+0.5.0 / 2014-08-08
+==================
+
+ * validate method can optionally return a modified string that will override the val.
+
 0.4.2 / 2014-01-23 
 ==================
 
