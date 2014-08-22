@@ -1,7 +1,7 @@
 {
   "name": "tokens",
   "description": "jQuery plugin that turns a text field into a tokenized autocomplete",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "homepage": "https://github.com/firstandthird/tokens/",
   "license": "MIT",
   "copyright": "First + Third",

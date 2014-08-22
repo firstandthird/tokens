@@ -1,4 +1,10 @@
 
+0.5.1 / 2014-08-22
+==================
+
+ * Merge pull request #26 from firstandthird/feature/tweaks
+ * Fixed issue where message would not move when input dropped lines
+
 0.5.0 / 2014-08-08
 ==================
 
