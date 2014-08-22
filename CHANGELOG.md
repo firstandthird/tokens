@@ -1,4 +1,9 @@
 
+0.5.2 / 2014-08-22
+==================
+
+ * Small fix for html being rendered in tester element
+
 0.5.1 / 2014-08-22
 ==================
 

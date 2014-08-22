@@ -315,7 +315,7 @@
     },
     _resizeInput : function() {
       if (this.inputResizer.text() !== this.inputText.val()){
-        this.inputResizer.html(escapeString(this.inputText.val()));
+        this.inputResizer.html($('<div/>').text(this.inputText.val()).html());
         this.inputText.width(this.inputResizer.width() + 30);
       }
     },
