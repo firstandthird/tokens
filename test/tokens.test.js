@@ -372,14 +372,14 @@ suite('tokens', function() {
         });
       });
 
-      suite('allowMultiplePaste',function(){
+      suite.skip('allowMultiplePaste',function(){
         setup(function(){
           cleanMess();
           el = $('#tokens-example');
           tokens = el.tokens({source : tokensSource, allowMultiplePaste: true});
           tokensFidel = tokens.data('tokens');
           list = $('ul.' + tokensFidel.cssClasses['token-list']);
-          tokensFidel.addValue('Acura,Nissan');
+          tokensFidel.el.val('Acura,Nissan').trigger('paste');
         });
         test('should have one token in the DOM', function(){
           assert.equal(list.find('.' + tokensFidel.cssClasses['list-token-holder']).length,2);
