@@ -371,6 +371,26 @@ suite('tokens', function() {
           assert.equal(tokensFidel.getValue()[0], 'elpmaxe');
         });
       });
+
+      suite('allowMultiplePaste',function(){
+        setup(function(){
+          cleanMess();
+          el = $('#tokens-example');
+          tokens = el.tokens({source : tokensSource, allowMultiplePaste: true});
+          tokensFidel = tokens.data('tokens');
+          list = $('ul.' + tokensFidel.cssClasses['token-list']);
+          tokensFidel.addValue('Acura,Nissan');
+        });
+        test('should have one token in the DOM', function(){
+          assert.equal(list.find('.' + tokensFidel.cssClasses['list-token-holder']).length,2);
+        });
+        test('should have one value in the internal list', function(){
+          assert.equal(tokensFidel.getValue().length,2);
+        });
+        test('should have updated the original element', function(){
+          assert.equal(tokensFidel.el.val(),'Acura, Nissan');
+        });
+      });
     });
   });
 });
