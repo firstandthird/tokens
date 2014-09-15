@@ -70,7 +70,8 @@
       suggestionsZindex : 999,
       source : [],
       initValue : [],
-      minChars : 0
+      minChars : 0,
+      allowMultiplePaste: false
     },
     _getTarget : function(e){
       return $(e.currentTarget || e.toElement);
@@ -418,27 +419,39 @@
     getValue : function() {
       return this.currentValue;
     },
-    addValue: function (value) {
+    addValue: function (values) {
       var tmp = this.currentValue.join(',').toLowerCase().split(',');
-      if (tmp.indexOf(value.toLowerCase()) === -1 && this._isWithinMax()){
-        this.currentValue.push(value);
-        var list = $('<li>').addClass(this.cssClasses['list-token-holder']),
-            paragraph = $('<p>').text(value);
 
-        paragraph.appendTo(list);
-        this._getCloseAnchor().appendTo(list);
-        list.insertBefore(this.listInputHolder);
-        this._updateValue();
-
-        this.emit('add', value);
-
-        if (this._hasReachedMax()){
-          this.emit('max', value);
-        }
-        return true;
+      if(this.allowMultiplePaste) {
+        values = values.split(',');
       } else {
-        return false;
+        values = [values];
       }
+
+      for(var value in values) {
+        value = values[value];
+        if (tmp.indexOf(value.toLowerCase()) === -1 && this._isWithinMax()){
+          this.currentValue.push(value);
+          var list = $('<li>').addClass(this.cssClasses['list-token-holder']),
+              paragraph = $('<p>').text(value);
+
+          paragraph.appendTo(list);
+          this._getCloseAnchor().appendTo(list);
+          list.insertBefore(this.listInputHolder);
+          this._updateValue();
+
+          this.emit('add', value);
+
+          if (this._hasReachedMax()){
+            this.emit('max', value);
+          }
+          continue;
+        } else {
+          return false;
+        }
+      }
+
+      return true;
      },
     removeValue: function (value) {
       this._removeNode(this._getNodeFromText(value),value);

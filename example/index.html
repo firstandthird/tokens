@@ -30,8 +30,21 @@
           initValue : [ 'Acura', 'Nissan' ]
         });
         $('#tokens-email').tokens({
+          allowMultiplePaste: true,
           validate: function(val) {
-            return (val.indexOf('@') != -1);
+            var values = val.split(',');
+
+            for(var value in values) {
+              value = values[value];
+
+              if(value.indexOf('@') !== -1) {
+                continue;
+              } else {
+                return false;
+              }
+            }
+
+            return true;
           }
         });
         $('#tokens-validate').tokens({
