@@ -1,4 +1,11 @@
 
+0.6.0 / 2014-09-14
+==================
+
+ * Merge pull request #28 from firstandthird/feature/paste-multiple-emails
+ * Switched to use paste event.
+ * Adds in basic support to paste a comma separated list of items all at once.
+
 0.5.3 / 2014-08-29 
 ==================
 

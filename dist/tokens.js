@@ -516,6 +516,7 @@
       this.list.on('click',this.proxy(this._onListClick,this));
       this.list.on('click', '.' + this.cssClasses['delete-anchor'], this.proxy(this._onDeleteClick,this));
 
+      this.inputText.on('paste', this.proxy(this._handlePaste,this));
       this.inputText.on('blur', this.proxy(this._hideSuggestions,this));
       this.inputText.on('keydown', this.proxy(this._onKeyDown,this));
       this.inputText.on('keyup', this.proxy(this._onKeyUp,this));
@@ -606,42 +607,46 @@
         this.inputText.val('');
       }
     },
+    _handlePaste: function(e) {
+      if(!this.allowMultiplePaste) return;
+
+      setTimeout(this.proxy(function() {
+        var text = this.inputText.val();
+        var items = text.split(',');
+
+        for(var item in items) {
+          item = items[item];
+
+          this.inputText.val(item);
+          this._selectSuggestion();
+        }
+      }, this),0);
+    },
     getValue : function() {
       return this.currentValue;
     },
-    addValue: function (values) {
+    addValue: function (value) {
       var tmp = this.currentValue.join(',').toLowerCase().split(',');
 
-      if(this.allowMultiplePaste) {
-        values = values.split(',');
-      } else {
-        values = [values];
-      }
+      if (tmp.indexOf(value.toLowerCase()) === -1 && this._isWithinMax()){
+        this.currentValue.push(value);
+        var list = $('<li>').addClass(this.cssClasses['list-token-holder']),
+            paragraph = $('<p>').text(value);
 
-      for(var value in values) {
-        value = values[value];
-        if (tmp.indexOf(value.toLowerCase()) === -1 && this._isWithinMax()){
-          this.currentValue.push(value);
-          var list = $('<li>').addClass(this.cssClasses['list-token-holder']),
-              paragraph = $('<p>').text(value);
+        paragraph.appendTo(list);
+        this._getCloseAnchor().appendTo(list);
+        list.insertBefore(this.listInputHolder);
+        this._updateValue();
 
-          paragraph.appendTo(list);
-          this._getCloseAnchor().appendTo(list);
-          list.insertBefore(this.listInputHolder);
-          this._updateValue();
+        this.emit('add', value);
 
-          this.emit('add', value);
-
-          if (this._hasReachedMax()){
-            this.emit('max', value);
-          }
-          continue;
-        } else {
-          return false;
+        if (this._hasReachedMax()){
+          this.emit('max', value);
         }
+        return true;
+      } else {
+        return false;
       }
-
-      return true;
      },
     removeValue: function (value) {
       this._removeNode(this._getNodeFromText(value),value);
