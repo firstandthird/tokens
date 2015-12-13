@@ -96,7 +96,7 @@ suite('tokens', function() {
       test('should fire event passing value as parameter', function(){
         var car = 'Volkswagon';
 
-        tokens.on('add', function(e,value){
+        tokens.on('add.tokens', function(e,value){
           assert.equal(value,car);
         });
 
@@ -115,7 +115,7 @@ suite('tokens', function() {
           assert.notEqual(tokensFidel.getValue().length,2);
         });
         test('should fire an event on cap',function(done){
-          tokens.on('max',function(){
+          tokens.on('max.tokens',function(){
             done();
           });
           tokensFidel.addValue('Acura');
@@ -145,7 +145,7 @@ suite('tokens', function() {
       test('should fire event passing removed value as parameter', function(){
         var car = 'Acura';
 
-        tokens.on('remove', function(e,value){
+        tokens.on('removed.tokens', function(e,value){
           assert.equal(value,car);
         });
 
