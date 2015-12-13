@@ -104,18 +104,22 @@ own function to query a database and return an array of suggestions. This functi
 
 Some events are fired:
 
+Note: All events are namespaced to `.tokens`
+
 ### `add`
 
 When an element is added this event is fired. Receives the value added as a parameter.
 
-### `remove`
+### `removed`
 
 When an element is removed, this event is fired. Receives the value removed as a parameter.
+
+Note: This was changed from `remove` to `removed` due to how jQuery handles trigger.
 
 ### `max`
 
 If you specify the `maxSelected` option to a value greater than `0', this event will be fired whenever you reach that
- ammount of tokens added.
+ amount of tokens added.
 
 ##Development
 

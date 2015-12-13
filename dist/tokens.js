@@ -1,9 +1,9 @@
 
 /*!
  * tokens - jQuery plugin that turns a text field into a tokenized autocomplete
- * v0.5.3
+ * v0.6.0
  * https://github.com/firstandthird/tokens/
- * copyright First + Third 2014
+ * copyright First + Third 2015
  * MIT License
 */
 /*!
@@ -469,7 +469,7 @@
       else if (this.allowAddingNoSuggestion){
         var val = $.trim(this.inputText.val());
         var isValid = this.validate(val);
-        
+
         if(typeof isValid === 'string') {
           val = isValid;
           isValid = true;
@@ -559,7 +559,7 @@
         this.currentValue.splice(index,1);
         this._updateValue();
 
-        this.emit('remove', text);
+        this.emit('remove.tokens', text);
       }
     },
     _addInitialValues : function(){
@@ -638,10 +638,10 @@
         list.insertBefore(this.listInputHolder);
         this._updateValue();
 
-        this.emit('add', value);
+        this.emit('add.tokens', value);
 
         if (this._hasReachedMax()){
-          this.emit('max', value);
+          this.emit('max.tokens', value);
         }
         return true;
       } else {
