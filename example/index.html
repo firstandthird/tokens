@@ -3,59 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <title>tokens example</title>
-    <link rel="stylesheet" type="text/css" href="../dist/tokens.css">
+    <link rel="stylesheet" type="text/css" href="../lib/tokens.css">
   </head>
   <body>
-    <h2>Cars</h2>
-    <input type="text" id="tokens-example"/>
-    <h2>Emails</h2>
-    <input type="text" id="tokens-email"/>
-    <h2>Custom validate</h2>
-    <p>Try entering <pre>John &lt;john@example.com&gt;</pre>
-    <input type="text" id="tokens-validate"/>
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../bower_components/fidel/dist/fidel.min.js"></script>
-    <script src="../dist/fidel.tokens.js"></script>
-    <script>
-      (function(){
-        $('#tokens-example').tokens({
-          source : [
-            'Acura', 'Audi', 'BMW', 'Cadillac',
-            'Chrysler', 'Dodge', 'Ferrari', 'Ford',
-            'GMC', 'Honda', 'Hyundai', 'Infiniti',
-            'Jeep', 'Kia', 'Lexus', 'Mini',
-            'Nissan', 'Porsche', 'Subaru', 'Toyota',
-            'Volkswagon', 'Volvo'
-          ],
-          initValue : [ 'Acura', 'Nissan' ]
-        });
-        $('#tokens-email').tokens({
-          allowMultiplePaste: true,
-          validate: function(val) {
-            var values = val.split(',');
+    <div data-module="Tokens" data-module-endpoint="../test/tokens.json?q=${term}" data-module-strict="false" data-action="focus">
+      <input type="text"
+             name="value"
+             value="Amparo, Por dios"
+             placeholder="Search for something">
+      <div data-name="resultsContainer"></div>
+    </div>
 
-            for(var value in values) {
-              value = values[value];
-
-              if(value.indexOf('@') !== -1) {
-                continue;
-              } else {
-                return false;
-              }
-            }
-
-            return true;
-          }
-        });
-        $('#tokens-validate').tokens({
-          validate: function(val) {
-            var email = val.match(/(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/gi);
-            if(email === null) return false;
-
-            return email[0];
-          }
-        });
-      })();
-    </script>
+    <script src="../dist/tokens.js"></script>
   </body>
 </html>

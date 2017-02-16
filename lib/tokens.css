@@ -1,0 +1,85 @@
+[data-module="Tokens"] {
+  display: inline-block;
+  position: relative;
+}
+
+.tokens-list {
+  height: auto;
+  width: 300px;
+  border: 1px solid #aaaaaa;
+  border-radius: 3px;
+  cursor: text;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  list-style-type: none;
+  clear: both;
+  color: #e5e5e5;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+.tokens-list li {
+  list-style-type: none;
+  line-height: 1.5;
+  float: left;
+}
+
+.tokens-list-token {
+  overflow: hidden;
+  height: auto;
+  margin: 3px 0 3px 3px;
+  padding: 1px 3px;
+  background: #989898;
+  cursor: default;
+  border-radius: 3px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.tokens-list-token p {
+  margin: 0;
+}
+
+.tokens-list-token p,
+.tokens-list-token .tokens-delete-token {
+  display: inline;
+  padding: 0;
+}
+
+.tokens-list-token .tokens-delete-token {
+  cursor: pointer;
+  margin: 0 2px 0 5px;
+  font-weight: bold;
+}
+
+
+.tokens-list li input {
+  outline: none;
+  border: 0;
+  padding: 3px 8px;
+  background-color: #ffffff;
+}
+
+[data-module="Tokens"] [data-name="resultsContainer"] {
+  background: white;
+  position: absolute;
+  top: 20px;
+  width: 100%;
+}
+
+[data-module="Tokens"] [data-name="resultsContainer"] ul {
+  margin: 0;
+  padding: 0;
+}
+
+[data-module="Tokens"] [data-name="resultsContainer"] ul li {
+  cursor: pointer;
+  padding: 5px;
+}
+
+[data-module="Tokens"] [data-name="resultsContainer"] ul li:hover,
+[data-module="Tokens"] [data-name="resultsContainer"] ul li.selected {
+  background-color: #ccc;
+}
