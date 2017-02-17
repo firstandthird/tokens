@@ -3,30 +3,7 @@
   position: relative;
 }
 
-.tokens-list {
-  height: auto;
-  width: 300px;
-  border: 1px solid #aaaaaa;
-  border-radius: 3px;
-  cursor: text;
-  z-index: 100;
-  margin: 0;
-  padding: 0;
-  background: #ffffff;
-  list-style-type: none;
-  clear: both;
-  color: #e5e5e5;
-  font-size: 12px;
-  overflow: hidden;
-}
-
-.tokens-list li {
-  list-style-type: none;
-  line-height: 1.5;
-  float: left;
-}
-
-.tokens-list-token {
+.token {
   overflow: hidden;
   height: auto;
   margin: 3px 0 3px 3px;
@@ -38,28 +15,20 @@
   white-space: nowrap;
 }
 
-.tokens-list-token p {
+.token p {
   margin: 0;
 }
 
-.tokens-list-token p,
-.tokens-list-token .tokens-delete-token {
+.token p,
+.token .token-delete {
   display: inline;
   padding: 0;
 }
 
-.tokens-list-token .tokens-delete-token {
+.token .token-delete {
   cursor: pointer;
   margin: 0 2px 0 5px;
   font-weight: bold;
-}
-
-
-.tokens-list li input {
-  outline: none;
-  border: 0;
-  padding: 3px 8px;
-  background-color: #ffffff;
 }
 
 [data-module="Tokens"] [data-name="resultsContainer"] {

@@ -6,10 +6,13 @@
     <link rel="stylesheet" type="text/css" href="../lib/tokens.css">
   </head>
   <body>
-    <div data-module="Tokens" data-module-endpoint="../test/tokens.json?q=${term}" data-module-strict="false" data-action="focus">
+    <div data-module="Tokens" data-module-endpoint="../test/tokens.json?q=${term}" data-module-strict="false" data-action="focus" data-module-initial="One, Two">
+      <div data-name="tokensContainer"></div>
       <input type="text"
              name="value"
-             value="Amparo, Por dios"
+             data-name="input"
+             data-action="search"
+             data-action-type="input"
              placeholder="Search for something">
       <div data-name="resultsContainer"></div>
     </div>
