@@ -45,7 +45,7 @@
     "extends": "firstandthird"
   },
   "dependencies": {
-    "@firstandthird/complete": "1.0.0-beta.11",
+    "@firstandthird/complete": "1.0.0-beta.12",
     "domassist": "1.7.1",
     "domodule": "5.1.1"
   },
