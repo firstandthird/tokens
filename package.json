@@ -46,7 +46,8 @@
   },
   "dependencies": {
     "@firstandthird/complete": "1.0.0-beta.12",
-    "domodule": "5.1.1"
+    "domassist": "^1.8.0",
+    "domodule": "5.1.2"
   },
   "scriptkit": {
     "files": {
