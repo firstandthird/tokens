@@ -1,6 +1,6 @@
 {
   "name": "@firstandthird/tokens",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "Class based modules",
   "main": "dist/tokens.js",
   "module": "lib/tokens.js",
@@ -45,8 +45,6 @@
     "extends": "firstandthird"
   },
   "dependencies": {
-    "@firstandthird/complete": "1.0.0-beta.12",
-    "domassist": "^1.8.0",
     "@firstandthird/complete": "1.0.0-beta.13",
     "domassist": "1.8.0",
     "domodule": "5.1.2"
