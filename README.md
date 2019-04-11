@@ -1,28 +1,47 @@
-#tokens
+# Tokens
 
-jQuery plugin that turns a text field into a tokenized autocomplete
+![npm](https://img.shields.io/npm/v/@firstandthird/tokens.svg)
 
-##Installation
+Plugin that turns a text field into a tokenized autocomplete.
 
-###Bower
+## Installation
 
-`bower install tokens`
+```sh
+npm install @firstandthird/tokens
+```
 
-###Manual Download
+## Usage
 
-- [Development]()
-- [Production]()
+### JavaScript
 
-##Usage
+```js
+import '@firstandthird/tokens'
+```
 
-Usage is fairly simple. Just target a text input and call tokens on top of it:
+### HTML
 
-````js
-$('#test').tokens();
-````
+```html
+  ...
 
-You can either provide a `source` parameter or pass a `query` function which retrieves data from server and return an
- array of suggestions.
+  <body>
+    <div data-module="Tokens" data-module-endpoint="../test/tokens.json?q=${term}" data-module-strict="false" data-action="focus" data-module-initial="One, Two">
+      <div data-name="tokensContainer"></div>
+      <input type="text"
+             name="value"
+             data-name="input"
+             data-action="search"
+             data-action-type="input"
+             placeholder="Search for something">
+      <div data-name="resultsContainer"></div>
+    </div>
+
+  </body>
+</html>
+```
+
+See the [complete example](./example/index.html).
+
+You can either provide a `source` parameter or pass a `query` function which retrieves data from server and return an array of suggestions.
 
 ### Optional parameters
 
@@ -116,28 +135,3 @@ When an element is removed, this event is fired. Receives the value removed as a
 
 If you specify the `maxSelected` option to a value greater than `0', this event will be fired whenever you reach that
  ammount of tokens added.
-
-##Development
-
-###Requirements
-
-- node and npm
-- bower `npm install -g bower`
-- grunt `npm install -g grunt-cli`
-
-###Setup
-
-- `npm install`
-- `bower install`
-
-###Run
-
-`grunt dev`
-
-or for just running tests on file changes:
-
-`grunt ci`
-
-###Tests
-
-`grunt mocha`
