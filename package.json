@@ -2,8 +2,8 @@
   "name": "@firstandthird/tokens",
   "version": "1.0.0",
   "description": "Class based modules",
-  "main": "dist/tokens.js",
-  "module": "lib/tokens.js",
+  "main": "lib/tokens.js",
+  "module": "dist/tokens.esm.js",
   "keywords": [
     "token",
     "autocomplete"
@@ -12,31 +12,16 @@
     "start": "scriptkit",
     "build": "scriptkit build",
     "dev": "scriptkit dev",
-    "test": "exit 0",
-    "test-skip": "cat test/tokens.test.dist.js | tape-run --static . --browser phantomjs --render tap-spec",
-    "prepublish": "scriptkit"
-  },
-  "watch": {
-    "lib/*.js": [
-      "lint",
-      "test"
-    ],
-    "test/*.js": [
-      "lint",
-      "test"
-    ]
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "scriptkit"
   },
   "repository": "https://github.com/firstandthird/tokens",
   "author": "First+Third",
   "license": "MIT",
   "devDependencies": {
-    "eslint-config-firstandthird": "3.2.0",
-    "eslint-plugin-import": "2.2.0",
-    "phantomjs-prebuilt": "^2.1.14",
-    "scriptkit": "0.2.0",
-    "tap-spec": "4.1.1",
-    "tape-rollup": "4.6.4",
-    "tape-run": "2.2.1"
+    "eslint-config-firstandthird": "^4.3.0",
+    "eslint-plugin-import": "^2.16.0",
+    "scriptkit": "^2.0.3"
   },
   "eslintConfig": {
     "env": {
@@ -45,21 +30,19 @@
     "extends": "firstandthird"
   },
   "dependencies": {
-    "@firstandthird/complete": "^1.0.0",
-    "domassist": "^1.8.0",
-    "domodule": "^5.1.2"
+    "@firstandthird/complete": "^1.1.0",
+    "domassist": "^2.0.2",
+    "domodule": "^6.0.0"
   },
   "scriptkit": {
-    "files": {
-      "dist/tokens.js": "lib/tokens.js",
-      "test/tokens.test.dist.js": "test/tokens.test.js"
+    "test": {
+      "enabled": false
     },
-    "scripts": {
-      "commonjs": {
-        "ignore": [
-          "node_modules/tape-rollup/*"
-        ]
-      }
+    "serve": {
+      "enabled": true
+    },
+    "files": {
+      "dist/tokens.js": "lib/tokens.js"
     }
   }
 }
