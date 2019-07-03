@@ -24,7 +24,7 @@ import '@firstandthird/tokens'
   ...
 
   <body>
-    <div data-module="Tokens" data-module-endpoint="../test/tokens.json?q=${term}" data-module-strict="false" data-action="focus" data-module-initial="One, Two">
+    <div data-module="Tokens" data-module-endpoint="tokens.json?q=${term}" data-module-strict="false" data-action="focus" data-module-initial="One, Two">
       <div data-name="tokensContainer"></div>
       <input type="text"
              name="value"
