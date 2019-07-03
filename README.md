@@ -24,7 +24,7 @@ import '@firstandthird/tokens'
   ...
 
   <body>
-    <div data-module="Tokens" data-module-endpoint="../test/tokens.json?q=${term}" data-module-strict="false" data-action="focus" data-module-initial="One, Two">
+    <div data-module="Tokens" data-module-endpoint="tokens.json?q=${term}" data-module-strict="false" data-action="focus" data-module-initial="One, Two">
       <div data-name="tokensContainer"></div>
       <input type="text"
              name="value"
@@ -117,7 +117,7 @@ own function to query a database and return an array of suggestions. This functi
 * `query` : The value entered by the user
 * `callback` : The function that you should call, passing the suggestions as an array, once you finished getting your results
 
-** Note ** : `this` will be the widget object, is your responsability to mantain the scope within the callback!
+> **Note:** `this` will be the widget object, is your responsability to mantain the scope within the callback!
 
 ## Events
 

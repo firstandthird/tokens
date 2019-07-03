@@ -1,9 +1,9 @@
 {
   "name": "@firstandthird/tokens",
   "version": "2.0.0",
-  "description": "Class based modules",
+  "description": "Turn a text field into a tokenized autocomplete.",
   "main": "lib/tokens.js",
-  "module": "dist/tokens.esm.js",
+  "module": "dist/tokens.js",
   "keywords": [
     "token",
     "autocomplete"
@@ -19,9 +19,9 @@
   "author": "First+Third",
   "license": "MIT",
   "devDependencies": {
-    "eslint-config-firstandthird": "^4.3.0",
-    "eslint-plugin-import": "^2.16.0",
-    "scriptkit": "^2.0.3"
+    "eslint-config-firstandthird": "^4.4.0",
+    "eslint-plugin-import": "^2.18.0",
+    "scriptkit": "^3.0.0"
   },
   "eslintConfig": {
     "env": {
@@ -30,9 +30,9 @@
     "extends": "firstandthird"
   },
   "dependencies": {
-    "@firstandthird/complete": "^1.1.0",
-    "domassist": "^2.0.2",
-    "domodule": "^6.0.0"
+    "@firstandthird/complete": "^2.1.0",
+    "domassist": "^2.2.0",
+    "domodule": "^6.1.0"
   },
   "scriptkit": {
     "test": {

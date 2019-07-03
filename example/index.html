@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../lib/tokens.css">
   </head>
   <body>
-    <div data-module="Tokens" data-module-endpoint="../test/tokens.json?q=${term}" data-module-strict="false" data-action="focus" data-module-initial="One, Two">
+    <div data-module="Tokens" data-module-endpoint="tokens.json?q=${term}" data-module-strict="false" data-action="focus" data-module-initial="One, Two">
       <div data-name="tokensContainer"></div>
       <input type="text"
              name="value"
@@ -17,6 +17,6 @@
       <div data-name="resultsContainer"></div>
     </div>
 
-    <script src="../dist/tokens.js"></script>
+    <script src="../dist/tokens.bundle.js"></script>
   </body>
 </html>
